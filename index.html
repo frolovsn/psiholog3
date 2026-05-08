@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Психолог — Системный подход к решению кризисов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #F2F2F2;
+            --bg-secondary: #1B263B;
+            --bg-white: #FFFFFF;
+            --accent-gold: #D4AF37;
+            --accent-gold-hover: #B8962E;
+            --accent-steel: #8D99AE;
+            --text-primary: #2B2D42;
+            --text-light: #EDF2F4;
+            --text-muted: #6B7280;
+            --border-light: #E5E7EB;
+            --border-dark: #2A3A52;
+            --radius: 6px;
+            --radius-lg: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(27, 38, 59, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-dark);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gold);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--accent-steel);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--accent-gold) !important;
+            color: var(--bg-secondary) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600 !important;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-gold-hover) !important;
+            transform: translateY(-1px);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .burger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-light);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 72px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent-gold);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--accent-steel);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 520px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--bg-secondary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-dark);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-photo-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .hero-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, #2A3A52 0%, #1B263B 100%);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-dark);
+        }
+
+        .hero-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-steel);
+            gap: 1rem;
+        }
+
+        .hero-photo-placeholder svg {
+            width: 120px;
+            height: 120px;
+            opacity: 0.3;
+        }
+
+        .hero-photo-placeholder span {
+            font-size: 0.8rem;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-photo-frame {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            bottom: 12px;
+            left: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--radius-lg);
+            pointer-events: none;
+        }
+
+        .hero-stats-mini {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .hero-stats-mini-item {
+            text-align: center;
+        }
+
+        .hero-stats-mini-item .number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .hero-stats-mini-item .label {
+            font-size: 0.7rem;
+            color: var(--accent-steel);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== СЕКЦИЯ: ЦИФРЫ И ФАКТЫ ===== */
+        .stats-bar {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 3rem 0;
+        }
+
+        .stats-bar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: var(--border-light);
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--bg-secondary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number .gold {
+            color: var(--accent-gold);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== ОБЩИЕ СТИЛИ СЕКЦИЙ ===== */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent-gold);
+            opacity: 0.4;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== МЕТОДОЛОГИЯ ===== */
+        .methodology {
+            background: var(--bg-white);
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .method-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .method-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .method-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .method-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .method-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent-gold);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .method-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .method-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .method-tag {
+            display: inline-block;
+            margin-top: 1.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.35rem 0.75rem;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: var(--radius);
+        }
+
+        /* ===== ПРОЦЕСС РАБОТЫ ===== */
+        .process {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .process .section-title {
+            color: var(--text-light);
+        }
+
+        .process .section-subtitle {
+            color: var(--accent-steel);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .process-step:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .process-step-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: rgba(212, 175, 55, 0.15);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .process-step h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .process-step p {
+            font-size: 0.85rem;
+            color: var(--accent-steel);
+            line-height: 1.6;
+        }
+
+        .process-rules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .rule-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rule-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--accent-gold);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .rule-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .rule-card p {
+            font-size: 0.85rem;
+            color: var(--accent-steel);
+            line-height: 1.6;
+        }
+
+        /* ===== ОБРАЗОВАНИЕ ===== */
+        .education {
+            background: var(--bg-white);
+        }
+
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .edu-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.75rem 2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .edu-item:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .edu-year {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.08);
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--radius);
+            white-space: nowrap;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .edu-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .edu-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .edu-content .edu-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-gold);
+            margin-top: 0.5rem;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            background: var(--bg-primary);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .faq-item {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--accent-gold);
+        }
+
+        .faq-toggle {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-toggle {
+            background: var(--accent-gold);
+            transform: rotate(45deg);
+        }
+
+        .faq-toggle svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-primary);
+            fill: none;
+            stroke-width: 2;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-toggle svg {
+            stroke: var(--bg-secondary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 2rem 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* ===== КОНТАКТЫ / CTA ===== */
+        .cta-section {
+            background: var(--bg-secondary);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0.3;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .cta-container h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .cta-container p {
+            font-size: 1.05rem;
+            color: var(--accent-steel);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-contacts {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cta-contact-item svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--accent-gold);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .cta-contact-item span {
+            font-size: 0.9rem;
+            color: var(--accent-steel);
+        }
+
+        .cta-contact-item a {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .cta-contact-item a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #111B2B;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-dark);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--accent-steel);
+            opacity: 0.6;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--accent-steel);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-gold);
+        }
+
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-description {
+                margin: 0 auto 2.5rem;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .hero-photo-wrapper {
+                max-width: 320px;
+            }
+
+            .hero-stats-mini {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .method-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-bar-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:nth-child(2)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateY(-120%);
+                transition: var(--transition);
+                border-bottom: 1px solid var(--border-dark);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 8rem 0 4rem;
+            }
+
+            .method-grid,
+            .process-grid,
+            .process-rules {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar-container {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .stat-item::after {
+                display: none !important;
+            }
+
+            .stat-item {
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border-light);
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+
+            .edu-item {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .cta-contacts {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-stats-mini {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin-top: 1.5rem;
+                justify-content: center;
+            }
+
+            .hero-photo-frame {
+                display: none;
+            }
+
+            .btn {
+                padding: 0.85rem 1.5rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B263B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                А. Волкова
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#methodology">Методология</a></li>
+                <li><a href="#process">Процесс</a></li>
+                <li><a href="#education">Образование</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact" class="nav-cta">Записаться</a></li>
+            </ul>
+            <div class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ГЕРОЙ-СЕКЦИЯ -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <div class="hero-badge-dot"></div>
+                    <span>Запись открыта</span>
+                </div>
+                <h1>Системный подход к&nbsp;решению личных и&nbsp;<span class="accent">профессиональных кризисов</span></h1>
+                <p class="hero-description">Клинический психолог с&nbsp;12-летним опытом работы. Использую доказательные методы КПТ и&nbsp;гештальт-терапии для&nbsp;устранения причин, а&nbsp;не&nbsp;симптомов.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">
+                        Записаться на консультацию
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <a href="#methodology" class="btn btn-outline">Узнать больше</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-photo-wrapper">
+                    <div class="hero-photo">
+    <img src="https://i.pinimg.com/1200x/e4/71/dc/e471dc29f7f1ee4ef6b7f2dc924e75c7.jpg" 
+         alt="Психолог Анна Волкова" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+</div>
+                    </div>
+                    <div class="hero-photo-frame"></div>
+                    <div class="hero-stats-mini">
+                        <div class="hero-stats-mini-item">
+                            <div class="number">12+</div>
+                            <div class="label">Лет практики</div>
+                        </div>
+                        <div class="hero-stats-mini-item">
+                            <div class="number">3000+</div>
+                            <div class="label">Часов терапии</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЦИФРЫ И ФАКТЫ -->
+    <section class="stats-bar">
+        <div class="stats-bar-container">
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number">12<span class="gold">+</span></div>
+                <div class="stat-label">Лет клинической практики</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number">3 000<span class="gold">+</span></div>
+                <div class="stat-label">Часов индивидуальной терапии</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number">800<span class="gold">+</span></div>
+                <div class="stat-label">Клиентов завершили курс</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number">РПО</div>
+                <div class="stat-label">Членство в ассоциации</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- МЕТОДОЛОГИЯ -->
+    <section class="section methodology" id="methodology">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Методология</div>
+                <h2 class="section-title">Доказательные подходы<br>в основе работы</h2>
+                <p class="section-subtitle">Каждый метод подтверждён клиническими исследованиями и адаптирован под индивидуальные задачи клиента</p>
+            </div>
+            <div class="method-grid">
+                <div class="method-card animate-on-scroll">
+                    <div class="method-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Когнитивно-поведенческая терапия (КПТ)</h3>
+                    <p>Работа с дисфункциональными мыслями и поведенческими паттернами. Золотой стандарт лечения тревожных расстройств и депрессии.</p>
+                    <span class="method-tag">Evidence-based</span>
+                </div>
+                <div class="method-card animate-on-scroll">
+                    <div class="method-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                    <h3>Гештальт-подход</h3>
+                    <p>Осознание незавершённых ситуаций и работа с эмоциями «здесь и сейчас». Эффективен при проблемах в отношениях и самоопределении.</p>
+                    <span class="method-tag">Experiential</span>
+                </div>
+                <div class="method-card animate-on-scroll">
+                    <div class="method-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Схема-терапия</h3>
+                    <p>Глубинная работа с ранними дезадаптивными схемами. Интегративный подход для устойчивых личностных изменений.</p>
+                    <span class="method-tag">Deep work</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПРОЦЕСС РАБОТЫ -->
+    <section class="section process" id="process">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Процесс</div>
+                <h2 class="section-title">Как строится работа</h2>
+                <p class="section-subtitle">Прозрачный и структурированный процесс от первого обращения до достижения целей</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">01</div>
+                    <h3>Первичный контакт</h3>
+                    <p>Краткая беседа для определения запроса и подбора формата работы</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">02</div>
+                    <h3>Диагностика</h3>
+                    <p>Первая сессия — сбор анамнеза, формулировка целей и терапевтического контракта</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">03</div>
+                    <h3>Терапия</h3>
+                    <p>Регулярные сессии с промежуточным мониторингом прогресса</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">04</div>
+                    <h3>Завершение</h3>
+                    <p>Закрепление результатов, план профилактики рецидивов</p>
+                </div>
+            </div>
+            <div class="process-rules">
+                <div class="rule-card animate-on-scroll">
+                    <div class="rule-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <h4>Длительность сессии</h4>
+                        <p>Стандартная терапевтическая сессия — 50 минут. Первичная консультация — 80 минут.</p>
+                    </div>
+                </div>
+                <div class="rule-card animate-on-scroll">
+                    <div class="rule-icon">
+                        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    </div>
+                    <div>
+                        <h4>Отмена и перенос</h4>
+                        <p>Отмена или перенос сессии возможны не позднее чем за 24 часа до назначенного времени.</p>
+                    </div>
+                </div>
+                <div class="rule-card animate-on-scroll">
+                    <div class="rule-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <div>
+                        <h4>Конфиденциальность</h4>
+                        <p>Всё, что обсуждается на сессиях, остаётся строго конфиденциальным. Подписывается договор.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОБРАЗОВАНИЕ -->
+    <section class="section education" id="education">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Образование</div>
+                <h2 class="section-title">Квалификация и&nbsp;непрерывное развитие</h2>
+                <p class="section-subtitle">Регулярное повышение квалификации и супервизия — стандарт профессиональной этики</p>
+            </div>
+            <div class="edu-list">
+                <div class="edu-item animate-on-scroll">
+                    <div class="edu-year">2012</div>
+                    <div class="edu-content">
+                        <h4>МГУ им. М.В. Ломоносова — Факультет психологии</h4>
+                        <p>Специальность: Клиническая психология. Диплом с отличием.</p>
+                        <div class="edu-type">Высшее образование</div>
+                    </div>
+                </div>
+                <div class="edu-item animate-on-scroll">
+                    <div class="edu-year">2015</div>
+                    <div class="edu-content">
+                        <h4>Московский Гештальт Институт</h4>
+                        <p>Профессиональная переподготовка по гештальт-подходу (720 ч.)</p>
+                        <div class="edu-type">Повышение квалификации</div>
+                    </div>
+                </div>
+                <div class="edu-item animate-on-scroll">
+                    <div class="edu-year">2018</div>
+                    <div class="edu-content">
+                        <h4>Beck Institute for Cognitive Behavior Therapy (США)</h4>
+                        <p>Сертификация по когнитивно-поведенческой терапии</p>
+                        <div class="edu-type">Международная сертификация</div>
+                    </div>
+                </div>
+                <div class="edu-item animate-on-scroll">
+                    <div class="edu-year">2021</div>
+                    <div class="edu-content">
+                        <h4>Схема-терапия: продвинутый уровень</h4>
+                        <p>Институт/schema Therapy Society. Работа с пограничным расстройством личности.</p>
+                        <div class="edu-type">Повышение квалификации</div>
+                    </div>
+                </div>
+                <div class="edu-item animate-on-scroll">
+                    <div class="edu-year">2024</div>
+                    <div class="edu-content">
+                        <h4>EMDR Europe Accredited Practitioner</h4>
+                        <p>Десенсибилизация и переработка движением глаз для работы с травмой.</p>
+                        <div class="edu-type">Международная сертификация</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" id="faq">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Вопросы</div>
+                <h2 class="section-title">Часто задаваемые вопросы</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Сколько стоит консультация?
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Стоимость индивидуальной сессии (50 мин) — 6 000 ₽. Первичная консультация (80 мин) — 8 000 ₽. При покупке пакета из 10 сессий предоставляется скидка 10%. Оплата возможна наличными или переводом до начала сессии.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        В каком формате проходит работа?
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Работа ведётся очно (кабинет в центре Москвы, м. Арбатская) и онлайн через защищённую видеосвязь. Формат выбирается совместно на первой встрече. Онлайн-формат не уступает по эффективности очному, что подтверждено исследованиями.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Как часто нужно посещать сессии?
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Рекомендованная частота — один раз в неделю. На начальных этапах возможна интенсивная работа (2 раза в неделю). По мере стабилизации состояния интервал между сессиями увеличивается. Средняя продолжительность курса — от 12 до 24 сессий.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Вы работаете с парами?
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Да, я провожу парную терапию в рамках гештальт-подхода и эмоционально-фокусированной терапии (EFT). Длительность парной сессии — 80 минут, стоимость — 9 000 ₽. Предварительно рекомендуется одна индивидуальная встреча с каждым партнёром.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Какие гарантии конфиденциальности?
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Конфиденциальность — фундамент терапевтических отношений. Перед началом работы подписывается информированное согласие, регламентирующее обработку данных. Информация не передаётся третьим лицам. Исключения строго определены законодательством РФ (угроза жизни клиента или третьих лиц).
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Что делать, если нужно отменить сессию?
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Отмена или перенос возможны не позднее чем за 24 часа до назначенного времени. При отмене менее чем за 24 часа сессия оплачивается в полном объёме. Это правило защищает время обеих сторон и является стандартом терапевтической этики.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / КОНТАКТЫ -->
+    <section class="cta-section" id="contact">
+        <div class="cta-container animate-on-scroll">
+            <h2>Готовы начать?</h2>
+            <p>Первый шаг — это осознанное решение. Запишитесь на первичную консультацию, и мы определим оптимальный маршрут работы.</p>
+            <div class="cta-buttons">
+                <a href="https://t.me/username" class="btn btn-primary" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    Написать в Telegram
+                </a>
+                <a href="https://wa.me/79001234567" class="btn btn-outline" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+            <div class="cta-contacts">
+                <div class="cta-contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.36 1.85.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.96.34 1.87.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <a href="tel:+79001234567">+7 (900) 123-45-67</a>
+                </div>
+                <div class="cta-contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <a href="mailto:hello@volkova-psy.ru">hello@volkova-psy.ru</a>
+                </div>
+                <div class="cta-contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>Москва, ул. Пречистенка, 12/2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-copy">© 2024 Анна Волкова. Все права защищены.</div>
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Оферта</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Навигация при скролле
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Бургер-меню
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Закрытие меню при клике на ссылку
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // FAQ аккордеон
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const answer = item.querySelector('.faq-answer');
+                const isActive = item.classList.contains('active');
+
+                // Закрыть все
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('active');
+                    faq.querySelector('.faq-answer').style.maxHeight = null;
+                });
+
+                // Открыть текущий (если не был активен)
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Анимация при скролле (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Плавный скролл для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
